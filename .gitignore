@@ -11,7 +11,7 @@
 /[Mm]emoryCaptures/
 
 /Assets/AssetStoreTools
-/Assets//AssetStoreTools.meta
+/Assets/AssetStoreTools.meta
 
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
