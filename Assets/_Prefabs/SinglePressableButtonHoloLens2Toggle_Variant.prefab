@@ -54,6 +54,16 @@ PrefabInstance:
       propertyPath: CanDeselect
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4732439893087157559, guid: 64790b91b91094d49942373c4e83c237,
+        type: 3}
+      propertyPath: localCenter.z
+      value: 0.008
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732439893087157559, guid: 64790b91b91094d49942373c4e83c237,
+        type: 3}
+      propertyPath: localForward.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6742094790733259646, guid: 64790b91b91094d49942373c4e83c237,
         type: 3}
       propertyPath: m_RootOrder
@@ -138,6 +148,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_HorizontalAlignment
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6898936025705274381, guid: 64790b91b91094d49942373c4e83c237,
+        type: 3}
+      propertyPath: distanceSpaceMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9004932328701866534, guid: 64790b91b91094d49942373c4e83c237,
         type: 3}

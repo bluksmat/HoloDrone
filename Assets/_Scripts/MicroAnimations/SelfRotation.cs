@@ -9,6 +9,8 @@ namespace HoloDrone.MicroAnimations
     public class SelfRotation : MonoBehaviour
     {
 
+        [Inject]
+        private AppStateManager _stateManager;
         public Vector3 axisDirection;
 
         [InspectorName("RPM")]
@@ -21,6 +23,9 @@ namespace HoloDrone.MicroAnimations
 
         void Update()
         {
+            //TODO: Make Base class for MicroAnimations which check allowMicroAnimations itself
+            if(!_stateManager._currentStateHandler.allowMicroAnimations) return;
+
             transform.localRotation = transform.localRotation * Quaternion.AngleAxis(Time.deltaTime*rpm*6f,axisDirection.normalized);
         }
 }

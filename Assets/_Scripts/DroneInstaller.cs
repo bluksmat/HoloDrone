@@ -4,6 +4,7 @@ using UnityEngine;
 using Zenject;
 using HoloDrone.MicroAnimations;
 using HoloDrone.TransformSuperior;
+using Microsoft.MixedReality.Toolkit.UI;
 
 namespace HoloDrone {
     public class DroneInstaller : MonoInstaller
@@ -23,20 +24,26 @@ namespace HoloDrone {
             Container.BindInterfacesAndSelfTo<AppStateExplode>().AsSingle();
             Container.BindInterfacesAndSelfTo<AppStateInfo>().AsSingle();
 
-            // TODO: Check if prefab for sure same ammount of ButtonSlots as States we implement, othrwise throw readable Error
-            Container.InstantiatePrefab(_settings.menuPrefab);
+            // TODO: Check if prefab for sure have same ammount of ButtonSlots as States we implement, othrwise throw readable Error
+            GameObject spaceBox = Container.InstantiatePrefab(_settings.spaceBoxPrefab);
 
-            Container.InstantiatePrefab(_settings.dronePrefab);
+            //TODO: Fix error while menu chnge parent
+            GameObject menu = Container.InstantiatePrefab(_settings.menuPrefab);
+            if(_settings.menuAsChildOfBox) menu.transform.SetParent(spaceBox.transform,true);
+
+            // DronePrefabInstaller drone = Container.InstantiatePrefabForComponent<DronePrefabInstaller>(_settings.dronePrefab,spaceBox.transform);
+
         }
 
         [Serializable]
         public class Settings {
+            public GameObject spaceBoxPrefab;
+            [Space]
             public GameObject dronePrefab;
 
             [Header("Menu")]
             public GameObject menuPrefab;
-            public bool menuFollowBox;
-            public bool menuScaleWithBox;
+            public bool menuAsChildOfBox;
             
             [Space]
             LimitedLookAtCamera.AxisRotationLock limitedLookAtCamera;

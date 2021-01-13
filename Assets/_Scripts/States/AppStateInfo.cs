@@ -11,6 +11,9 @@ namespace HoloDrone {
         [Inject]
         readonly Settings settings = null;
         
+        [Inject]
+        List<PartOfProduct> allParts;
+
         public override void AddSelfToManager() => stateMananger.AddStateToSlot(this,2);
 
         public override void EnterState() {
@@ -20,7 +23,6 @@ namespace HoloDrone {
         public override void ExitState() {
             Debug.Log("Exit " + this.GetType().Name);
         }
-        
         
         [Serializable]
         public enum DisplayFormat {

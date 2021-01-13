@@ -12,6 +12,8 @@ namespace HoloDrone {
         [Inject]
         readonly Settings _settings = null;
 
+        public override bool allowMicroAnimations => true;
+
         public override void AddSelfToManager() => stateMananger.AddStateToSlot(this,index:0);
 
         public override void EnterState() {

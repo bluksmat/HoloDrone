@@ -9,6 +9,8 @@ namespace HoloDrone.MicroAnimations
     [AddComponentMenu("Micro Animations/Simple Wave")]
     public class SimpleWave : MonoBehaviour
     {
+        [Inject]
+        private AppStateManager _stateManager;
 
         [Inject]
         public Settings settings;
@@ -30,6 +32,8 @@ namespace HoloDrone.MicroAnimations
         // Update is called once per frame
         void Update()
         {
+            if(!_stateManager._currentStateHandler.allowMicroAnimations) return;
+
             float currentFrameOffestMove = Mathf.Sin(Time.time/settings.duration);
             float currentFrameOffestRotation = Mathf.Sin(Time.time/settings.duration)/180f;
             

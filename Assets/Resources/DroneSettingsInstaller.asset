@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: DroneSettingsInstaller
   m_EditorClassIdentifier: 
   DroneInstaller:
-    dronePrefab: {fileID: 7422781138069177946, guid: 8088004c4ecf63e4aac28757aca23f6e,
+    spaceBoxPrefab: {fileID: 383325992438577921, guid: a221bb8439953124ea87c64410b48902,
       type: 3}
-    menuPrefab: {fileID: 3313623942243254276, guid: 07bb4e8ffadec0e4b922a4eecce162ee,
+    dronePrefab: {fileID: 8006080493309739850, guid: 3df5a8dfa07a4c34e9cc6cde72ac0fae,
       type: 3}
-    menuFollowBox: 1
-    menuScaleWithBox: 0
+    menuPrefab: {fileID: 30082268806709474, guid: c5d1e43a0b272a44e9b1abf06e5accf1,
+      type: 3}
+    menuAsChildOfBox: 1
     addWaveEffect: 1
     waveEffectSetting:
       waveMoveRange: {x: 0, y: 0, z: 0}
@@ -32,6 +33,7 @@ MonoBehaviour:
     paddingBoundingBox: 0
   AppStateExplode:
     defaultCombineRange: 0
+    initialPartsCapacity: 0
     merges: []
     unmerges: []
   AppStateInfo:
