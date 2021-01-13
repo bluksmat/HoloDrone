@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55634f60d1152064a90395bd479d5bc6, type: 3}
+  m_Name: DroneSettingsInstaller
+  m_EditorClassIdentifier: 
+  DroneInstaller:
+    dronePrefab: {fileID: 7422781138069177946, guid: 8088004c4ecf63e4aac28757aca23f6e,
+      type: 3}
+    menuPrefab: {fileID: 3313623942243254276, guid: 07bb4e8ffadec0e4b922a4eecce162ee,
+      type: 3}
+    menuFollowBox: 1
+    menuScaleWithBox: 0
+    addWaveEffect: 1
+    waveEffectSetting:
+      waveMoveRange: {x: 0, y: 0, z: 0}
+      yaw: 0
+      pitch: 0
+      roll: 0
+      duration: 0
+    ModelVariantOveride:
+    - {fileID: 3813807637511426000, guid: 7fa8e58fdd35b2d45bd456237ec81779, type: 3}
+  AppStateAdjust:
+    paddingBoundingBox: 0
+  AppStateExplode:
+    defaultCombineRange: 0
+    merges: []
+    unmerges: []
+  AppStateInfo:
+    grouping: 0
+    faceUser: 0
+    tooltips: []
