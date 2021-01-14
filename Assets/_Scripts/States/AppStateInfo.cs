@@ -11,17 +11,20 @@ namespace HoloDrone {
         [Inject]
         readonly Settings settings = null;
         
-        [Inject]
-        List<PartOfProduct> allParts;
+        // [Inject]
+        // List<PartOfProduct> allParts = new List<PartOfProduct>();
 
         public override void AddSelfToManager() => stateMananger.AddStateToSlot(this,2);
 
         public override void EnterState() {
-            Debug.Log("Enter " + this.GetType().Name);
         }
 
         public override void ExitState() {
-            Debug.Log("Exit " + this.GetType().Name);
+        }
+
+        public void AddPart(PartOfProduct partOfProduct)
+        {
+            // allParts.Add(partOfProduct);
         }
         
         [Serializable]
@@ -36,7 +39,7 @@ namespace HoloDrone {
             public string label;
             public GameObject reference;
         }
-        
+
         [Serializable]
         public class Settings {
             

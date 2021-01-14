@@ -12,16 +12,26 @@ namespace HoloDrone {
         [Inject]
         readonly Settings _settings = null;
 
+        // LazyInject<DronePrefabInstaller.Context> _dronePrefabContext;
+        // LazyInject<DronePrefabInstaller.Context> _dronePrefabContext;
+
         public override bool allowMicroAnimations => true;
 
         public override void AddSelfToManager() => stateMananger.AddStateToSlot(this,index:0);
 
         public override void EnterState() {
-            Debug.Log("Enter " + this.GetType().Name);
+            // boundingBox.gameObject.SetActive(true);
+            // Debug.Log(_dronePrefabContext==null);
         }
 
         public override void ExitState() {
-            Debug.Log("Exit " + this.GetType().Name);
+            // boundingBox.gameObject.SetActive(false);
+        }
+
+        public override void Initialize()
+        {
+            base.Initialize();
+            // boundingBox.gameObject.SetActive(false);
         }
 
         public void FinalizeBinding(DiContainer container)

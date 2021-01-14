@@ -49,11 +49,11 @@ MonoBehaviour:
   boundsOverride: {fileID: 0}
   boundsCalculationMethod: 0
   activation: 0
-  scaleMinimum: 0.2
-  scaleMaximum: 2
+  scaleMinimum: 0.005
+  scaleMaximum: 0.02
   flattenAxis: 0
   flattenAxisDisplayScale: 0
-  boxPadding: {x: 0.2, y: 0.2, z: 0.2}
+  boxPadding: {x: 0, y: 0, z: 0}
   boxMaterial: {fileID: 0}
   boxGrabbedMaterial: {fileID: 0}
   showWireframe: 1
@@ -149,6 +149,6 @@ MonoBehaviour:
   targetTransform: {fileID: 0}
   handType: 3
   proximityType: 3
-  scaleMinimum: 0.2
-  scaleMaximum: 2
+  scaleMinimum: 0.02
+  scaleMaximum: 0.2
   relativeToInitialState: 1

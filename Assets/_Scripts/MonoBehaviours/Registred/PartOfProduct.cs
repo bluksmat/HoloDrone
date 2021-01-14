@@ -7,8 +7,10 @@ using Microsoft.MixedReality.Toolkit.UI;
 
 namespace HoloDrone {
 
+    public class R_PartOfProduct: MonoRegistry<PartOfProduct>{}
+
     [AddComponentMenu("Holo Drone/Part Of Product")]
-    public class PartOfProduct : MonoBehaviour, IInitializable
+    public class PartOfProduct : RegistredMonoBehaviour<PartOfProduct,R_PartOfProduct>, IInitializable
     {
         public string label = "";
         
@@ -19,10 +21,10 @@ namespace HoloDrone {
         public bool solidMerge;
 
         public Transform refTransform;
+
         public void Initialize () {
-            refTransform = Instantiate<Transform>(null,this.transform);
+            // this.
+            // refTransform = Instantiate<Transform>(null,this.transform);
         }
-        // [Inject] void _ (AppStateExplode c) => c.AddPart(this);
-        // [Inject] void _ (AppStateInfo c) => string.IsNullOrEmpty(label) ? ()=>{} : c.AddPart(this);
     }
 }

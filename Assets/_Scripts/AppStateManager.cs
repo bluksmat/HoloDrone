@@ -13,6 +13,8 @@ namespace HoloDrone
         [Inject] 
         public AppStateManager stateMananger;
 
+        // public DronePrefabInstaller.Context droneContext;
+
         public Interactable myButton;
 
         public virtual bool allowMicroAnimations => false;
@@ -23,7 +25,7 @@ namespace HoloDrone
 
         public abstract void AddSelfToManager();
 
-        public void Initialize() {
+        public virtual void Initialize() {
             AddSelfToManager();
         }
     }
@@ -32,6 +34,8 @@ namespace HoloDrone
     {
         Dictionary<Type,AppStateBase> _states = null;
         public AppStateBase _currentStateHandler {private set;get;}
+
+        // public MenuContext menuContext;
 
         Interactable[] _menuButtons;
 
@@ -45,6 +49,7 @@ namespace HoloDrone
         //AddStates on {AppStateBase.Initialize()}, after Injections
         public void AddStateToSlot<T>(T state,int index) where T: AppStateBase
         {
+            return;
             Debug.Log("add state");
             _states[typeof(T)] = state;
             state.myButton = _menuButtons[index];

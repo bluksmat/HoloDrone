@@ -7,7 +7,7 @@ using HoloDrone.TransformSuperior;
 using Microsoft.MixedReality.Toolkit.UI;
 
 namespace HoloDrone {
-    public class DroneInstaller : MonoInstaller
+    public class DroneInstaller : MonoInstaller<DroneInstaller>, IInitializable
     {
         [Inject]
         Settings _settings = null;
@@ -17,22 +17,38 @@ namespace HoloDrone {
             //IDEA: Make AppManager to switch States in Editor while in Prefab Edit Mode; adjustFanSpeed, MenuScale and etc.
             Container.Bind<LimitedLookAtCamera.AxisRotationLock>().AsSingle().IfNotBound();
 
-
-            var appStateManager = Container.BindInterfacesAndSelfTo<AppStateManager>().FromInstance(new AppStateManager(statesInitialCapacity:3)).AsSingle();
+            Container.BindInterfacesAndSelfTo<AppStateManager>().FromInstance(new AppStateManager(statesInitialCapacity:3)).AsSingle();
 
             Container.BindInterfacesAndSelfTo<AppStateAdjust>().AsSingle();
             Container.BindInterfacesAndSelfTo<AppStateExplode>().AsSingle();
             Container.BindInterfacesAndSelfTo<AppStateInfo>().AsSingle();
 
-            // TODO: Check if prefab for sure have same ammount of ButtonSlots as States we implement, othrwise throw readable Error
-            GameObject spaceBox = Container.InstantiatePrefab(_settings.spaceBoxPrefab);
+            // // TODO: Check if prefab for sure have same ammount of ButtonSlots as States we implement, othrwise throw readable Error
+            // GameObject spaceBox = Container.InstantiatePrefab(_settings.spaceBoxPrefab);
+            // Container.BindInstance<BoundingBox>(spaceBox.GetComponent<BoundingBox>());
+            // // Container.QueueForInject
 
-            //TODO: Fix error while menu chnge parent
-            GameObject menu = Container.InstantiatePrefab(_settings.menuPrefab);
-            if(_settings.menuAsChildOfBox) menu.transform.SetParent(spaceBox.transform,true);
+            // //TODO: Fix error while menu chnge parent
+            // if(_settings.menuAsChildOfBox) menu.transform.SetParent(spaceBox.transform,true);
 
-            // DronePrefabInstaller drone = Container.InstantiatePrefabForComponent<DronePrefabInstaller>(_settings.dronePrefab,spaceBox.transform);
+            // GameObject drone = Container.InstantiatePrefab(_settings.dronePrefab,spaceBox.transform);
 
+            // spaceBox.GetComponent<BoundingBox>().Target = drone.gameObject;
+
+            // Container.InstantiatePrefab(_settings.menuPrefab);
+
+            Container.Bind<DronePrefabInstaller.Context>()
+            .FromSubContainerResolve()
+            .ByNewContextPrefab(_settings.dronePrefab)
+            .AsSingle()
+            .OnInstantiated<DronePrefabInstaller>((ctx,obj)=>{}).NonLazy();
+
+            // GameObject menu = Container.InstantiatePrefab(_settings.menuPrefab);
+
+        }
+
+        public void Initialize ()  {
+            Debug.Log("wtf?");
         }
 
         [Serializable]
