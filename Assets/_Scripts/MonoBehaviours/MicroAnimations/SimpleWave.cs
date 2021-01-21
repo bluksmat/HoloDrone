@@ -12,8 +12,10 @@ namespace HoloDrone.MicroAnimations
         [Inject]
         private AppStateManager _stateManager;
 
-        [Inject]
+        // [Inject]
         public Settings settings;
+
+        float _instenstity = 0;
 
         [Serializable]
         public class Settings
@@ -32,14 +34,21 @@ namespace HoloDrone.MicroAnimations
         // Update is called once per frame
         void Update()
         {
-            if(!_stateManager._currentStateHandler.allowMicroAnimations) return;
+            //TODO: Optimize to remove calvulation over Range
+            if(_stateManager?._currentStateHandler?.dissableWaves == true) {
+                _instenstity -= Time.fixedDeltaTime;
+            }else {
+                _instenstity += Time.fixedDeltaTime;
+            }
 
-            float currentFrameOffestMove = Mathf.Sin(Time.time/settings.duration);
-            float currentFrameOffestRotation = Mathf.Sin(Time.time/settings.duration)/180f;
+            _instenstity = Mathf.Clamp(_instenstity,0f,1f);
+            
+            float currentFrameOffestMove = Mathf.Sin(Time.time/settings.duration)*_instenstity;
+            float currentFrameOffestRotation = Mathf.Sin(Time.time/settings.duration/3)*_instenstity;
             
             transform.localPosition = currentFrameOffestMove * settings.waveMoveRange;
 
-            transform.localRotation *= 
+            transform.localRotation = 
                 Quaternion.AngleAxis(currentFrameOffestRotation*settings.yaw,Vector3.up)*
                 Quaternion.AngleAxis(currentFrameOffestRotation*settings.pitch,Vector3.right)*
                 Quaternion.AngleAxis(currentFrameOffestRotation*settings.roll,Vector3.forward);

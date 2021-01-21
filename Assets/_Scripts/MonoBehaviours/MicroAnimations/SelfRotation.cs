@@ -9,7 +9,6 @@ namespace HoloDrone.MicroAnimations
     public class SelfRotation : MonoBehaviour
     {
 
-        [Inject]
         private AppStateManager _stateManager;
         public Vector3 axisDirection;
 
@@ -17,16 +16,17 @@ namespace HoloDrone.MicroAnimations
         public float rpm;
 
         [Inject]
-        public void Init(float rpm) {
-            this.rpm = rpm;
+        private void BindManager(AppStateManager stateManager) {
+            _stateManager = stateManager;
         }
 
         void Update()
         {
+            // if(_stateManager?._currentStateHandler?.dissableWaves == true) return;
             //TODO: Make Base class for MicroAnimations which check allowMicroAnimations itself
-            if(!_stateManager._currentStateHandler.allowMicroAnimations) return;
-
-            transform.localRotation = transform.localRotation * Quaternion.AngleAxis(Time.deltaTime*rpm*6f,axisDirection.normalized);
+            // if(_stateManager?._currentStateHandler?.allowMicroAnimations == true || _stateManager?._currentStateHandler == null) {
+                transform.localRotation = transform.localRotation * Quaternion.AngleAxis(Time.deltaTime*rpm*6f,axisDirection.normalized);
+            // }
         }
 }
 }

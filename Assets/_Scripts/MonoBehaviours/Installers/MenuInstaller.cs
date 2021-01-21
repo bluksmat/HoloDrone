@@ -2,28 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+using HoloDrone;
 
+// namespace HoloDrone {
 
-namespace HoloDrone {
-
-    public class MenuInstaller : MonoInstaller<DronePrefabInstaller>
+    public class MenuInstaller : Installer<MenuInstaller>
     {
-        //TODO: Couldn't find reference to sceneContainer other way.
-
-        public class Context {
-
-            // [Inject] public List<PartOfProduct> buttons;
-
-        }
-
-        // [Inject]
-        // public Context context;
 
         public override void InstallBindings () {
-            // Container.BindInterfacesAndSelfTo<Context>();
-
-            // Container.Bind<PartOfProduct>()
-            // .FromComponentsInChildren();
+            Container.Bind<R_MenuSlotBinder>().AsSingle();
         }
     }
-}
+// }

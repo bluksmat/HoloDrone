@@ -10,11 +10,14 @@ namespace HoloDrone {
     {
         [Inject]
         readonly Settings settings = null;
-        
+
         // [Inject]
         // List<PartOfProduct> allParts = new List<PartOfProduct>();
 
-        public override void AddSelfToManager() => stateMananger.AddStateToSlot(this,2);
+        public override bool dissableWaves => true;
+
+        [Inject]
+        void AddSelfToManager(AppStateManager manager) => stateMananger.AddState(this);
 
         public override void EnterState() {
         }

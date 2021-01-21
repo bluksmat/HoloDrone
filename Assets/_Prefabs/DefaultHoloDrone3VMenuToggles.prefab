@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7190167126494201229}
   - component: {fileID: 9120483971720609252}
-  - component: {fileID: 8972849174717945814}
-  - component: {fileID: 139804995410902384}
   m_Layer: 0
   m_Name: DefaultHoloDrone3VMenuToggles
   m_TagString: Untagged
@@ -48,36 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   relativeTo: {fileID: 0}
---- !u!114 &8972849174717945814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7190167126494201218}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _scriptableObjectInstallers: []
-  _monoInstallers:
-  - {fileID: 139804995410902384}
-  _installerPrefabs: []
-  _autoRun: 1
-  _kernel: {fileID: 0}
---- !u!114 &139804995410902384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7190167126494201218}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ef62099b753e3a4baee967cdbd144b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7190167127972290076
 GameObject:
   m_ObjectHideFlags: 0

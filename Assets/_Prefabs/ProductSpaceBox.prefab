@@ -49,8 +49,8 @@ MonoBehaviour:
   boundsOverride: {fileID: 0}
   boundsCalculationMethod: 0
   activation: 0
-  scaleMinimum: 0.005
-  scaleMaximum: 0.02
+  scaleMinimum: 0.05
+  scaleMaximum: 0.2
   flattenAxis: 0
   flattenAxisDisplayScale: 0
   boxPadding: {x: 0, y: 0, z: 0}

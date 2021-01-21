@@ -15,14 +15,9 @@ namespace HoloDrone {
 
         }
 
-        // [Inject]
-        // public Context context;
-
-        public List<PartOfProduct> partOfProduct;
-
         public override void InstallBindings () {
             Debug.Log("DronePrefabInstaller.InstallBindings");
-//TODO Inject parts of product
+            //TODO Inject parts of product
 
             Container.Bind<DronePrefabInstaller.Context>().FromInstance(new DronePrefabInstaller.Context()).AsSingle();
 

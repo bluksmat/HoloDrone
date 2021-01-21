@@ -17,14 +17,20 @@ namespace HoloDrone {
             //IDEA: Make AppManager to switch States in Editor while in Prefab Edit Mode; adjustFanSpeed, MenuScale and etc.
             Container.Bind<LimitedLookAtCamera.AxisRotationLock>().AsSingle().IfNotBound();
 
-            Container.BindInterfacesAndSelfTo<AppStateManager>().FromInstance(new AppStateManager(statesInitialCapacity:3)).AsSingle();
+            Container.BindInterfacesAndSelfTo<AppStateManager>().AsSingle().IfNotBound();
 
             Container.BindInterfacesAndSelfTo<AppStateAdjust>().AsSingle();
             Container.BindInterfacesAndSelfTo<AppStateExplode>().AsSingle();
             Container.BindInterfacesAndSelfTo<AppStateInfo>().AsSingle();
 
+
+            // SignalBusInstaller.Install(Container);
+
+            // Container.DeclareSignal<UserJoinedSignal>();
+            
             // // TODO: Check if prefab for sure have same ammount of ButtonSlots as States we implement, othrwise throw readable Error
             // GameObject spaceBox = Container.InstantiatePrefab(_settings.spaceBoxPrefab);
+
             // Container.BindInstance<BoundingBox>(spaceBox.GetComponent<BoundingBox>());
             // // Container.QueueForInject
 
@@ -35,13 +41,25 @@ namespace HoloDrone {
 
             // spaceBox.GetComponent<BoundingBox>().Target = drone.gameObject;
 
-            // Container.InstantiatePrefab(_settings.menuPrefab);
 
-            Container.Bind<DronePrefabInstaller.Context>()
-            .FromSubContainerResolve()
-            .ByNewContextPrefab(_settings.dronePrefab)
-            .AsSingle()
-            .OnInstantiated<DronePrefabInstaller>((ctx,obj)=>{}).NonLazy();
+
+            // Container.Bind<R_MenuSlotBinder>().FromSubContainerResolve().ByNewPrefabInstaller<MenuInstaller>(_settings.menuPrefab).AsSingle().OnInstantiated((c,o) => {
+            // });
+
+            // "R_*" corespod to menu registrators
+
+            Container.Bind<R_MenuSlotBinder>().AsSingle();
+            Container.Bind<R_PartOfProduct>().AsSingle();
+
+            // Container.Bind<R_MenuSlotBinder>().FromSubContainerResolve().ByNewPrefabInstaller<MenuInstaller>(_settings.menuPrefab).AsSingle();
+
+            // Container.Bind<DronePrefabInstaller.Context>()
+            // .FromSubContainerResolve()
+            // .ByNewContextPrefab(_settings.dronePrefab)
+            // .AsSingle()  
+
+
+            // .OnInstantiated<DronePrefabInstaller>((ctx,obj)=>{}).NonLazy();
 
             // GameObject menu = Container.InstantiatePrefab(_settings.menuPrefab);
 

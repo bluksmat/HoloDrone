@@ -7,23 +7,23 @@ using Zenject;
 
 namespace HoloDrone {
 
-    public class MonoRegistry<T> where T: MonoBehaviour{
+    public class MonoRegister<T> where T: MonoBehaviour{
 
-        readonly Action<T> componentAdded;
-        readonly Action<T> componentRemoved;
+        public  Action<T> componentAdded;
+        public Action<T> componentRemoved;
 
-        readonly List<T> _components;
+        readonly List<T> _components = new List<T>();
 
         public IEnumerable<T> components => _components;
         
         public void AddComponent(T component) {
             _components.Add(component);
-            componentAdded(component);
+            if(componentAdded != null) componentAdded(component);
         } 
 
         public void RemoveComponent(T component) {
             _components.Remove(component);
-            componentRemoved(component);
+            if(componentRemoved != null) componentRemoved(component);
         } 
 
         public override string ToString() {
@@ -31,16 +31,17 @@ namespace HoloDrone {
         }
     }
 
-    public abstract class RegistredMonoBehaviour<T1,T2>: MonoBehaviour where T1: RegistredMonoBehaviour<T1,T2> where T2: MonoRegistry<T1>{
+    public abstract class RegistredMonoBehaviour<T,MonoRegister>: MonoBehaviour where T: RegistredMonoBehaviour<T,MonoRegister> where MonoRegister: MonoRegister<T>{
 
         Action onDestroy;
 
         [Inject]
-        void Register(T2 c) {
-            c.AddComponent((T1)this);
-            onDestroy += () => c.RemoveComponent((T1)this);
+        void Register(MonoRegister c) {
+            c.AddComponent((T)this);
+            onDestroy += () => c.RemoveComponent((T)this);
         }
 
         protected virtual void OnDestroy() => onDestroy();
     }
+
 }

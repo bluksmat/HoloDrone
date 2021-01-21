@@ -7,42 +7,65 @@ using Zenject;
 namespace HoloDrone {
 
     // IDEA: Tool for adjusting Explode object merging
-    public class AppStateExplode : AppStateBase,IInitializable
+    public class AppStateExplode : AppStateBase, IFixedTickable
     {
         [Inject]
         readonly Settings settings = null;
 
-        // [Inject]
-        // List<PartOfProduct> allParts = new List<PartOfProduct>();
+        [Inject]
+        readonly AppStateManager manager;
 
-        public override void AddSelfToManager() => stateMananger.AddStateToSlot(this,1);
+        R_PartOfProduct _partsOfProduct;
+
+        public override bool dissableWaves => true;
+
+        float _animationProgress;
+        float _animationDelta;
+
+        [Inject]
+        void GetPartRegistry(R_PartOfProduct partsOfProduct) {
+            this._partsOfProduct = partsOfProduct;
+        }
+
+        [Inject]
+        void AddSelfToManager(AppStateManager manager) => stateMananger.AddState(this);
+
+
 
         public override void EnterState() {
+            _animationDelta = settings.animationSpeed;
+
         }
 
         public override void ExitState() {
+            _animationDelta = -settings.animationSpeed;
+
         }
 
-        public void AddPart(PartOfProduct partOfProduct)
+        public void FixedTick()
         {
-            // allParts.Add(partOfProduct);
+            // if(manager._currentStateHandler != this) return;
+            _animationProgress = Mathf.Clamp(_animationProgress + Time.fixedDeltaTime*_animationDelta,0f,1f);
+
+            foreach(var part in _partsOfProduct.components) {
+                var refLP = part.refLocalPos;
+                var refOP = part.refOffsetPos;
+
+                part.transform.position = 
+                    part.transform.parent.TransformPoint(refLP)
+                    -part.mergeTo.transform.parent.TransformPoint(part.mergeTo.refLocalPos)
+                    +part.mergeTo.transform.TransformPoint(Vector3.Scale(refOP,part.ownOffsetMultiplayer*settings.rangeMultiplayer*settings.animationCurve.Evaluate(_animationProgress)));
+            }
         }
         
-
-        [Serializable]
-        public class CombineModels {
-            public GameObject Who;
-            public GameObject To;
-        }
         [Serializable]
         public class Settings {
-            public float defaultCombineRange;
+            public float rangeMultiplayer;
+            public AnimationCurve animationCurve;
+            public float animationSpeed;
 
             public int initialPartsCapacity;
 
-            [Header("Manuals")]
-            public CombineModels[] merges;
-            public CombineModels[] unmerges;
         }
     }
 }

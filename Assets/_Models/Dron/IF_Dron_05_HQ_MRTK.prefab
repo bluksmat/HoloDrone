@@ -112,7 +112,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: dron_propeller
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7276748880387197199, guid: 971920c7ea9b13b46a64f2400f2928d9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 971920c7ea9b13b46a64f2400f2928d9, type: 3}
 --- !u!4 &7422781138069019254 stripped
 Transform:
@@ -192,7 +193,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8157119501129735863, guid: 4b2a0071619e055499699c8923687db2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4b2a0071619e055499699c8923687db2, type: 3}
 --- !u!4 &7422781138069019248 stripped
 Transform:
@@ -272,7 +274,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: dron_arm01
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1000818582446156421, guid: 3a2cd200be431274483761844cceff88, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3a2cd200be431274483761844cceff88, type: 3}
 --- !u!4 &7422781138069019250 stripped
 Transform:
@@ -352,7 +355,8 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c6262c64c557a4f40a10fcbab36811b9, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8195885651083536838, guid: 97f431edfb872b1408ab4820dc61381d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 97f431edfb872b1408ab4820dc61381d, type: 3}
 --- !u!4 &7422781138069019252 stripped
 Transform:
@@ -437,7 +441,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: dron_arm01 (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1000818582446156421, guid: 3a2cd200be431274483761844cceff88, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3a2cd200be431274483761844cceff88, type: 3}
 --- !u!4 &5777743269254196063 stripped
 Transform:
@@ -527,7 +532,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: dron_arm01 (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1000818582446156421, guid: 3a2cd200be431274483761844cceff88, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3a2cd200be431274483761844cceff88, type: 3}
 --- !u!4 &5777743269042678223 stripped
 Transform:
@@ -607,7 +613,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: dron_propeller (3)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7276748880387197199, guid: 971920c7ea9b13b46a64f2400f2928d9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 971920c7ea9b13b46a64f2400f2928d9, type: 3}
 --- !u!4 &712398864777581684 stripped
 Transform:
@@ -687,7 +694,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: dron_propeller (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7276748880387197199, guid: 971920c7ea9b13b46a64f2400f2928d9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 971920c7ea9b13b46a64f2400f2928d9, type: 3}
 --- !u!4 &712398864983533662 stripped
 Transform:
@@ -767,7 +775,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: dron_propeller (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7276748880387197199, guid: 971920c7ea9b13b46a64f2400f2928d9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 971920c7ea9b13b46a64f2400f2928d9, type: 3}
 --- !u!4 &712398865327925140 stripped
 Transform:
@@ -852,7 +861,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: dron_arm01 (3)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1000818582446156421, guid: 3a2cd200be431274483761844cceff88, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3a2cd200be431274483761844cceff88, type: 3}
 --- !u!4 &5777743269269405092 stripped
 Transform:

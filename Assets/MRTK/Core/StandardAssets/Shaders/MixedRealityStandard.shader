@@ -111,83 +111,6 @@ Shader "Mixed Reality Toolkit/Standard"
 
     SubShader
     {
-        // Extracts information for lightmapping, GI (emission, albedo, ...)
-        // This pass it not used during regular rendering.
-        Pass
-        {
-            Name "Meta"
-            Tags { "LightMode" = "Meta" }
-
-            CGPROGRAM
-
-            #pragma vertex vert
-            #pragma fragment frag
-
-            #pragma shader_feature _EMISSION
-            #pragma shader_feature _CHANNEL_MAP
-
-            #include "UnityCG.cginc"
-            #include "UnityMetaPass.cginc"
-
-            // This define will get commented in by the UpgradeShaderForLightweightRenderPipeline method.
-            //#define _LIGHTWEIGHT_RENDER_PIPELINE
-
-            struct v2f
-            {
-                float4 vertex : SV_POSITION;
-                float2 uv : TEXCOORD0;
-            };
-
-            float4 _MainTex_ST;
-
-            v2f vert(appdata_full v)
-            {
-                v2f o;
-                o.vertex = UnityMetaVertexPosition(v.vertex, v.texcoord1.xy, v.texcoord2.xy, unity_LightmapST, unity_DynamicLightmapST);
-                o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
-
-                return o;
-            }
-
-            sampler2D _MainTex;
-            sampler2D _ChannelMap;
-
-            fixed4 _Color;
-            fixed4 _EmissiveColor;
-
-#if defined(_LIGHTWEIGHT_RENDER_PIPELINE)
-            CBUFFER_START(_LightBuffer)
-            float4 _MainLightPosition;
-            half4 _MainLightColor;
-            CBUFFER_END
-#else
-            fixed4 _LightColor0;
-#endif
-
-            half4 frag(v2f i) : SV_Target
-            {
-                UnityMetaInput output;
-                UNITY_INITIALIZE_OUTPUT(UnityMetaInput, output);
-
-                output.Albedo = tex2D(_MainTex, i.uv) * _Color;
-#if defined(_EMISSION)
-#if defined(_CHANNEL_MAP)
-                output.Emission += tex2D(_ChannelMap, i.uv).b * _EmissiveColor;
-#else
-                output.Emission += _EmissiveColor;
-#endif
-#endif
-#if defined(_LIGHTWEIGHT_RENDER_PIPELINE)
-                output.SpecularColor = _MainLightColor.rgb;
-#else
-                output.SpecularColor = _LightColor0.rgb;
-#endif
-
-                return UnityMetaFragment(output);
-            }
-            ENDCG
-        }
-
         Pass
         {
             Name "Main"
@@ -215,10 +138,7 @@ Shader "Mixed Reality Toolkit/Standard"
 
             #pragma multi_compile_instancing
             #pragma multi_compile _ LIGHTMAP_ON
-            #pragma multi_compile _ _MULTI_HOVER_LIGHT
-            #pragma multi_compile _ _CLIPPING_PLANE
-            #pragma multi_compile _ _CLIPPING_SPHERE
-            #pragma multi_compile _ _CLIPPING_BOX
+            #pragma multi_compile _ _CLIPPING_PLANE _CLIPPING_SPHERE _CLIPPING_BOX
 
             #pragma shader_feature _ _ALPHATEST_ON _ALPHABLEND_ON
             #pragma shader_feature _DISABLE_ALBEDO_MAP
@@ -263,6 +183,7 @@ Shader "Mixed Reality Toolkit/Standard"
             #include "UnityCG.cginc"
             #include "UnityStandardConfig.cginc"
             #include "UnityStandardUtils.cginc"
+            #include "MixedRealityShaderUtils.cginc"
 
             // This define will get commented in by the UpgradeShaderForLightweightRenderPipeline method.
             //#define _LIGHTWEIGHT_RENDER_PIPELINE
@@ -484,11 +405,7 @@ Shader "Mixed Reality Toolkit/Standard"
 #endif
 
 #if defined(_HOVER_LIGHT) || defined(_NEAR_LIGHT_FADE)
-#if defined(_MULTI_HOVER_LIGHT)
-#define HOVER_LIGHT_COUNT 3
-#else
-#define HOVER_LIGHT_COUNT 1
-#endif
+#define HOVER_LIGHT_COUNT 2
 #define HOVER_LIGHT_DATA_SIZE 2
             float4 _HoverLightData[HOVER_LIGHT_COUNT * HOVER_LIGHT_DATA_SIZE];
 #if defined(_HOVER_COLOR_OVERRIDE)
@@ -604,29 +521,6 @@ Shader "Mixed Reality Toolkit/Standard"
             {
                 fixed3 color = lerp(centerColor.rgb, middleColor.rgb, smoothstep(centerColor.a, middleColor.a, t));
                 return lerp(color, outerColor, smoothstep(middleColor.a, outerColor.a, t));
-            }
-#endif
-
-#if defined(_CLIPPING_PLANE)
-            inline float PointVsPlane(float3 worldPosition, float4 plane)
-            {
-                float3 planePosition = plane.xyz * plane.w;
-                return dot(worldPosition - planePosition, plane.xyz);
-            }
-#endif
-
-#if defined(_CLIPPING_SPHERE)
-            inline float PointVsSphere(float3 worldPosition, float4 sphere)
-            {
-                return distance(worldPosition, sphere.xyz) - sphere.w;
-            }
-#endif
-
-#if defined(_CLIPPING_BOX)
-            inline float PointVsBox(float3 worldPosition, float3 boxSize, float4x4 boxInverseTransform)
-            {
-                float3 distance = abs(mul(boxInverseTransform, float4(worldPosition, 1.0))) - boxSize;
-                return length(max(distance, 0.0)) + min(max(distance.x, max(distance.y, distance.z)), 0.0);
             }
 #endif
 
@@ -905,7 +799,7 @@ Shader "Mixed Reality Toolkit/Standard"
 
                 // Primitive clipping.
 #if defined(_CLIPPING_PRIMITIVE)
-                float primitiveDistance = 1.0; 
+                float primitiveDistance = 1.0;
 #if defined(_CLIPPING_PLANE)
                 primitiveDistance = min(primitiveDistance, PointVsPlane(i.worldPosition.xyz, _ClipPlane) * _ClipPlaneSide);
 #endif
@@ -1231,6 +1125,84 @@ Shader "Mixed Reality Toolkit/Standard"
                 return output;
             }
 
+            ENDCG
+        }
+
+        // Extracts information for lightmapping, GI (emission, albedo, ...)
+        // This pass it not used during regular rendering.
+        Pass
+        {
+            Name "Meta"
+            Tags { "LightMode" = "Meta" }
+
+            CGPROGRAM
+
+            #pragma vertex vert
+            #pragma fragment frag
+
+            #pragma shader_feature EDITOR_VISUALIZATION
+            #pragma shader_feature _EMISSION
+            #pragma shader_feature _CHANNEL_MAP
+
+            #include "UnityCG.cginc"
+            #include "UnityMetaPass.cginc"
+
+            // This define will get commented in by the UpgradeShaderForLightweightRenderPipeline method.
+            //#define _LIGHTWEIGHT_RENDER_PIPELINE
+
+            struct v2f
+            {
+                float4 vertex : SV_POSITION;
+                float2 uv : TEXCOORD0;
+            };
+
+            float4 _MainTex_ST;
+
+            v2f vert(appdata_full v)
+            {
+                v2f o;
+                o.vertex = UnityMetaVertexPosition(v.vertex, v.texcoord1.xy, v.texcoord2.xy, unity_LightmapST, unity_DynamicLightmapST);
+                o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
+
+                return o;
+            }
+
+            sampler2D _MainTex;
+            sampler2D _ChannelMap;
+
+            fixed4 _Color;
+            fixed4 _EmissiveColor;
+
+#if defined(_LIGHTWEIGHT_RENDER_PIPELINE)
+            CBUFFER_START(_LightBuffer)
+            float4 _MainLightPosition;
+            half4 _MainLightColor;
+            CBUFFER_END
+#else
+            fixed4 _LightColor0;
+#endif
+
+            half4 frag(v2f i) : SV_Target
+            {
+                UnityMetaInput output;
+                UNITY_INITIALIZE_OUTPUT(UnityMetaInput, output);
+
+                output.Albedo = tex2D(_MainTex, i.uv) * _Color;
+#if defined(_EMISSION)
+#if defined(_CHANNEL_MAP)
+                output.Emission += tex2D(_ChannelMap, i.uv).b * _EmissiveColor;
+#else
+                output.Emission += _EmissiveColor;
+#endif
+#endif
+#if defined(_LIGHTWEIGHT_RENDER_PIPELINE)
+                output.SpecularColor = _MainLightColor.rgb;
+#else
+                output.SpecularColor = _LightColor0.rgb;
+#endif
+
+                return UnityMetaFragment(output);
+            }
             ENDCG
         }
     }

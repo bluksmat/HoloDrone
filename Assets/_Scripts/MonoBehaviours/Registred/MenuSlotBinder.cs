@@ -6,12 +6,10 @@ using Microsoft.MixedReality.Toolkit.UI;
 
 namespace HoloDrone {
 
-    public class R_MenuSlotBinder: MonoRegistry<PartOfProduct>{}
+    public class R_MenuSlotBinder: MonoRegister<MenuSlotBinder>{}
 
+    [RequireComponent(typeof(Interactable))]
     public class MenuSlotBinder : RegistredMonoBehaviour<MenuSlotBinder,R_MenuSlotBinder> {
 
-        [Inject]
-        void BindMeToManager(AppStateManager appStateManager) => appStateManager.ActivateSlot(GetComponent<Interactable>(),transform.GetSiblingIndex());
-    
     }
 }

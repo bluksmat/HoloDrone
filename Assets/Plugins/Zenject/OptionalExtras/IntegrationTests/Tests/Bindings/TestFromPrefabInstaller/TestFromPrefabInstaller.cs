@@ -24,7 +24,8 @@ namespace Zenject.Tests.Bindings.FromPrefabInstaller
             PreInstall();
 
             Container.Bind<Qux>().FromSubContainerResolve()
-                .ByNewPrefabInstaller<FooInstaller>(FooPrefab).AsCached();
+            .ByNewPrefabInstaller<FooInstaller>(FooPrefab)
+            .AsCached(); 
 
             PostInstall();
 
