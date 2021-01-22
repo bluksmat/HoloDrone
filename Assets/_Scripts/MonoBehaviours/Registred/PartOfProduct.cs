@@ -4,15 +4,18 @@ using Zenject;
 using HoloDrone;
 using HoloDrone.MicroAnimations;
 using Microsoft.MixedReality.Toolkit.UI;
+using Microsoft.MixedReality.Toolkit.Input;
+using System.Collections.Generic;
 
 namespace HoloDrone {
 
     public class R_PartOfProduct: MonoRegister<PartOfProduct>{}
 
+    [RequireComponent(typeof(Collider))]
     [AddComponentMenu("Holo Drone/Part Of Product")]
-    public class PartOfProduct : RegistredMonoBehaviour<PartOfProduct,R_PartOfProduct>
+    public class PartOfProduct : RegistredMonoBehaviour<PartOfProduct,R_PartOfProduct>, IMixedRealityFocusHandler
     {
-        public string label = "";
+        [Header("Explode")]
         
         [Tooltip("Explosion would be relative to this target")]
         [SerializeField]
@@ -25,10 +28,14 @@ namespace HoloDrone {
                 return _mergeTo;
             }
         }
-        [Tooltip("Object would not innclude it's own offfset")]
+        
+        [Tooltip("Define whether we prefer using tranaform pivot or bounding box center")]
         public bool useBoundingBoxCenter = false;
 
-        public Vector3 ownOffsetMultiplayer = Vector3.one;
+        public Vector3 offsetMultiplayer = Vector3.one;
+
+        public Action<PartOfProduct, FocusEventData> onFocusEnter;
+        public Action<PartOfProduct, FocusEventData> onFocusExit;
 
         private Vector3 _refLocalPos = Vector3.positiveInfinity;
         public Vector3 refLocalPos {
@@ -41,12 +48,40 @@ namespace HoloDrone {
         }
         private Vector3 _refOffsetPos = Vector3.positiveInfinity;
 
-        //In local space of merge targer
+        [Header("Tooltips")]
+        public string label = "";
+        
+        public GameObject tooltipPrefab;
+
+        [Serializable]
+        public class PartTooltipSetup {
+            [Tooltip("define position frow which tooltip line start")]
+            public Transform tooltipAnchor = null;
+
+            [Tooltip("define position for tooltip")]
+            public Transform tooltipPivot = null;
+        }
+
+        [Tooltip("We use list in case of objects which visualy are slited in multiple object but are single mesh and etc.")]
+        public List<PartTooltipSetup> productTooltipSetups = null;
+
+        private Vector3 _localBoundCenter = Vector3.positiveInfinity;
+        public Vector3 localBoundCenter {
+            get {
+                if(_localBoundCenter.x == Mathf.Infinity) {
+
+                    _localBoundCenter = transform.InverseTransformPoint(GetComponent<MeshRenderer>().bounds.center);
+
+                }
+                return _localBoundCenter;
+            }
+        }
+
+        /// <summary> In local space of merge target (used for object disassemble like in Explode State </summary>
         public Vector3 refOffsetPos {
             get {
                 if(_refOffsetPos.x == Mathf.Infinity) {
                     if(useBoundingBoxCenter) {
-                        //Offset betwen bounding boxes
                         _refOffsetPos = mergeTo.transform.InverseTransformPoint(transform.GetComponent<MeshRenderer>().bounds.center) - mergeTo.transform.InverseTransformPoint(mergeTo.GetComponent<MeshRenderer>().bounds.center);
                     }else{
                         _refOffsetPos = mergeTo.transform.InverseTransformPoint(transform.position);
@@ -55,6 +90,16 @@ namespace HoloDrone {
                 }
                 return _refOffsetPos;
             }
+        }
+
+        public void OnFocusEnter(FocusEventData eventData)
+        {
+            if(onFocusEnter != null) onFocusEnter(this,eventData);
+        }
+
+        public void OnFocusExit(FocusEventData eventData)
+        {
+            if(onFocusEnter != null) onFocusEnter(this,eventData);
         }
     }
 }

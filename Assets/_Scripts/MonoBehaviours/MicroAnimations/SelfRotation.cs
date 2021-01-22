@@ -22,10 +22,10 @@ namespace HoloDrone.MicroAnimations
 
         void Update()
         {
-            // if(_stateManager?._currentStateHandler?.dissableWaves == true) return;
-            //TODO: Make Base class for MicroAnimations which check allowMicroAnimations itself
-            // if(_stateManager?._currentStateHandler?.allowMicroAnimations == true || _stateManager?._currentStateHandler == null) {
-                transform.localRotation = transform.localRotation * Quaternion.AngleAxis(Time.deltaTime*rpm*6f,axisDirection.normalized);
+            //TODO: More smooth dissable like in SimpleWave
+            if(_stateManager?._currentStateHandler?.dissableSelfRotations == true) return;
+            
+            transform.localRotation = transform.localRotation * Quaternion.AngleAxis(Time.deltaTime*rpm*6f,axisDirection.normalized);
             // }
         }
 }

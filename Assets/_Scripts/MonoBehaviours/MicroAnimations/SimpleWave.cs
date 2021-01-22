@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,7 +34,7 @@ namespace HoloDrone.MicroAnimations
         // Update is called once per frame
         void Update()
         {
-            //TODO: Optimize to remove calvulation over Range
+            //TODO: Optimize by dissableing behaviour when _intensity drop < 0, and activate when state use it.
             if(_stateManager?._currentStateHandler?.dissableWaves == true) {
                 _instenstity -= Time.fixedDeltaTime;
             }else {
@@ -44,7 +44,7 @@ namespace HoloDrone.MicroAnimations
             _instenstity = Mathf.Clamp(_instenstity,0f,1f);
             
             float currentFrameOffestMove = Mathf.Sin(Time.time/settings.duration)*_instenstity;
-            float currentFrameOffestRotation = Mathf.Sin(Time.time/settings.duration/3)*_instenstity;
+            float currentFrameOffestRotation = Mathf.Sin(Time.time/settings.duration/3 )*_instenstity;
             
             transform.localPosition = currentFrameOffestMove * settings.waveMoveRange;
 

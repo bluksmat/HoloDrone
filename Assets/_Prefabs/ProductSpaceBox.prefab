@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 383325992438577923}
   - component: {fileID: 383325992438577920}
   - component: {fileID: 383325992438577922}
-  - component: {fileID: 383325992438577933}
   m_Layer: 0
   m_Name: ProductSpaceBox
   m_TagString: Untagged
@@ -49,8 +48,8 @@ MonoBehaviour:
   boundsOverride: {fileID: 0}
   boundsCalculationMethod: 0
   activation: 0
-  scaleMinimum: 0.05
-  scaleMaximum: 0.2
+  scaleMinimum: 0.5
+  scaleMaximum: 1.5
   flattenAxis: 0
   flattenAxisDisplayScale: 0
   boxPadding: {x: 0, y: 0, z: 0}
@@ -134,21 +133,3 @@ MonoBehaviour:
   onHoverExited:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &383325992438577933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 383325992438577921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 820f94d57893bf843a0cd6d93313fe6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetTransform: {fileID: 0}
-  handType: 3
-  proximityType: 3
-  scaleMinimum: 0.02
-  scaleMaximum: 0.2
-  relativeToInitialState: 1

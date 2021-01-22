@@ -60,6 +60,7 @@ MonoBehaviour:
     animationSpeed: 4
     initialPartsCapacity: 0
   AppStateInfo:
-    grouping: 0
+    toolTipPrefab: {fileID: 6200797561739278764, guid: 245970bc4aff25c4192cb33d7e316407,
+      type: 3}
+    autoFillEmptyPivotsDistance: 0.25
     faceUser: 0
-    tooltips: []

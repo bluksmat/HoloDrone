@@ -12,7 +12,14 @@ namespace HoloDrone {
         [Inject]
         readonly Settings _settings = null;
 
-        BoundingBox _boundingBox;
+        private BoundingBox _boundingBox;
+
+        BoxCollider _boxCollider;
+
+
+        public override bool dissableWaves => true;
+
+        public BoundingBox boundingBox => _boundingBox;
 
         [Inject]
         void AddSelfToManager(AppStateManager manager) {
@@ -21,10 +28,12 @@ namespace HoloDrone {
 
         public override void EnterState() {
             _boundingBox.enabled = true;
+            _boxCollider.enabled = true;
         }
 
         public override void ExitState() {
             _boundingBox.enabled = false;
+            _boxCollider.enabled = false;
         }
 
         public void FinalizeBinding(DiContainer container)
@@ -34,10 +43,11 @@ namespace HoloDrone {
 
         [Inject]
         public void BoundBoxSetup(BoundingBox boundingBox) {
-        
             this._boundingBox = boundingBox;
+            this._boxCollider = boundingBox.BoundsOverride;
 
-            boundingBox.enabled = false;
+            this._boundingBox.enabled = false;
+            this._boxCollider.enabled = false;
         }
 
         public void Initialize() {}

@@ -52,9 +52,9 @@ namespace HoloDrone
         // }
 
         //TODO: Hope to remove this ugly activation
-        [Inject] AppStateAdjust appStateAdjust;
-        [Inject] AppStateExplode appStateExplode;
-        [Inject] AppStateInfo appStateInfo;
+        [Inject] public AppStateAdjust appStateAdjust;
+        [Inject] public AppStateExplode appStateExplode;
+        [Inject] public AppStateInfo appStateInfo;
 
         [Inject] 
         public void MenuRegistryBinding (R_MenuSlotBinder registrator) {

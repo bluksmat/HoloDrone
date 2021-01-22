@@ -54,7 +54,7 @@ namespace HoloDrone {
                 part.transform.position = 
                     part.transform.parent.TransformPoint(refLP)
                     -part.mergeTo.transform.parent.TransformPoint(part.mergeTo.refLocalPos)
-                    +part.mergeTo.transform.TransformPoint(Vector3.Scale(refOP,part.ownOffsetMultiplayer*settings.rangeMultiplayer*settings.animationCurve.Evaluate(_animationProgress)));
+                    +part.mergeTo.transform.TransformPoint(Vector3.Scale(refOP,part.offsetMultiplayer*settings.rangeMultiplayer*settings.animationCurve.Evaluate(_animationProgress)));
             }
         }
         

@@ -6,9 +6,8 @@ using HoloDrone;
 
 // namespace HoloDrone {
 
-    public class MenuInstaller : Installer<MenuInstaller>
+    public class MenuInstaller : MonoInstaller<MenuInstaller>
     {
-
         public override void InstallBindings () {
             Container.Bind<R_MenuSlotBinder>().AsSingle();
         }
