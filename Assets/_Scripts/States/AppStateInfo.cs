@@ -161,13 +161,6 @@ namespace HoloDrone {
         }
 
         [Serializable]
-        public enum DisplayFormat {
-            OneOfGroup,
-            Merged,
-            NoGrouping,
-        }
-
-        [Serializable]
         public class Settings {
             public GameObject toolTipPrefab;
             public float autoFillEmptyPivotsDistance = 1;

@@ -1,3 +1,5 @@
+#pragma warning disable 0414
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -53,8 +55,6 @@ namespace HoloDrone {
         public void Initialize() {}
 
         [Serializable]
-        public class Settings {
-            public float paddingBoundingBox;
-        }
+        public class Settings {}
     }
 }

@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 383325992438577923}
   - component: {fileID: 383325992438577920}
   - component: {fileID: 383325992438577922}
+  - component: {fileID: 8734300868695890738}
+  - component: {fileID: 6097658825019691662}
   m_Layer: 0
   m_Name: ProductSpaceBox
   m_TagString: Untagged
@@ -45,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObject: {fileID: 383325992438577921}
-  boundsOverride: {fileID: 0}
+  boundsOverride: {fileID: 8734300868695890738}
   boundsCalculationMethod: 0
   activation: 0
   scaleMinimum: 0.5
@@ -133,3 +135,34 @@ MonoBehaviour:
   onHoverExited:
     m_PersistentCalls:
       m_Calls: []
+--- !u!65 &8734300868695890738
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383325992438577921}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.95, y: 0.3, z: 0.95}
+  m_Center: {x: 0, y: -0.015, z: 0}
+--- !u!114 &6097658825019691662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383325992438577921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0166d8ff8d905b048b2448179e1f5d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _components:
+  - {fileID: 383325992438577920}
+  _identifier: 
+  _useSceneContext: 1
+  _context: {fileID: 0}
+  _bindType: 0

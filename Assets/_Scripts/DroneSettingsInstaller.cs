@@ -13,8 +13,11 @@ namespace HoloDrone {
         public DroneInstaller.Settings DroneInstaller;
 
         [Header("States Settings")]
+        [Space]
         public AppStateAdjust.Settings AppStateAdjust;
+        [Space]
         public AppStateExplode.Settings AppStateExplode;
+        [Space]
         public AppStateInfo.Settings AppStateInfo;
 
 

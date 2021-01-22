@@ -51,17 +51,6 @@ namespace HoloDrone {
         [Header("Tooltips")]
         public string label = "";
         
-        public GameObject tooltipPrefab;
-
-        [Serializable]
-        public class PartTooltipSetup {
-            [Tooltip("define position frow which tooltip line start")]
-            public Transform tooltipAnchor = null;
-
-            [Tooltip("define position for tooltip")]
-            public Transform tooltipPivot = null;
-        }
-
         [Tooltip("We use list in case of objects which visualy are slited in multiple object but are single mesh and etc.")]
         public List<PartTooltipSetup> productTooltipSetups = null;
 
@@ -100,6 +89,15 @@ namespace HoloDrone {
         public void OnFocusExit(FocusEventData eventData)
         {
             if(onFocusEnter != null) onFocusEnter(this,eventData);
+        }
+        
+    [Serializable]
+        public class PartTooltipSetup {
+            [Tooltip("define position frow which tooltip line start")]
+            public Transform tooltipAnchor = null;
+
+            [Tooltip("define position for tooltip")]
+            public Transform tooltipPivot = null;
         }
     }
 }

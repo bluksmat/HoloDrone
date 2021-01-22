@@ -24,8 +24,6 @@ namespace HoloDrone
 
         public abstract void ExitState();
 
-        // [Inject]
-        // public abstract void AddSelfToManager(AppStateManager manager);
     }
 
     public class AppStateTypeComparer: IComparer<Type> {
@@ -38,18 +36,9 @@ namespace HoloDrone
 
     public class AppStateManager : ITickable, IFixedTickable, IInitializable
     {
-        //
         SortedDictionary<Type,AppStateBase> _states = new SortedDictionary<Type, AppStateBase>(new AppStateTypeComparer());
 
         public AppStateBase _currentStateHandler {private set;get;}
-
-        // public MenuContext menuContext;
-
-
-        // [Inject] 
-        // public void WERTYU (AppStateAdjust registrator) {
-        //     Debug.Log("AppStateAdjust at Manager");
-        // }
 
         //TODO: Hope to remove this ugly activation
         [Inject] public AppStateAdjust appStateAdjust;
@@ -58,7 +47,6 @@ namespace HoloDrone
 
         [Inject] 
         public void MenuRegistryBinding (R_MenuSlotBinder registrator) {
-            Debug.Log("R_MenuSlotBinder at Manager");
 
             void defoultActivationFunction(MenuSlotBinder menuSlotBinder) 
             => ActivateSlot(menuSlotBinder.GetComponent<Interactable>(),menuSlotBinder.transform.GetSiblingIndex());
@@ -69,8 +57,6 @@ namespace HoloDrone
         }
 
         public void ExitCurrentState () => _currentStateHandler?.ExitState();
-
-        //AddStates on {AppStateBase.Initialize()}, after Injections
 
         
         public void AddState<T>(T state) where T: AppStateBase
